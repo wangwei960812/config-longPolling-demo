@@ -17,4 +17,6 @@ public class ConfigProperties {
     private String url;
 
     private String dataId;
+
+    private boolean enable = false;
 }

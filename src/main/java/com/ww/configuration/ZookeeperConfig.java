@@ -16,10 +16,16 @@ import org.springframework.context.annotation.Configuration;
 public class ZookeeperConfig {
 
     @Bean
-    public CuratorFramework curatorFramework(CuratorFrameworkProperties curatorFrameworkProperties){
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry(curatorFrameworkProperties.getBaseSleepTimeMs(), curatorFrameworkProperties.getMaxSleepMs());
-        CuratorFramework client = CuratorFrameworkFactory.newClient(curatorFrameworkProperties.getConnectString(), retryPolicy);
-        client.start();
-        return client;
+    public CuratorFramework curatorFramework(CuratorFrameworkProperties curatorFrameworkProperties) {
+        if (curatorFrameworkProperties.isEnable()) {
+            RetryPolicy retryPolicy = new ExponentialBackoffRetry(curatorFrameworkProperties.getBaseSleepTimeMs(), curatorFrameworkProperties.getMaxSleepMs());
+            CuratorFramework client = CuratorFrameworkFactory.newClient(curatorFrameworkProperties.getConnectString(), retryPolicy);
+            client.start();
+            return client;
+        } else {
+            return null;
+        }
+
+
     }
 }

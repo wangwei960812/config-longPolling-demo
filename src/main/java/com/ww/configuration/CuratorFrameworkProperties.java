@@ -18,4 +18,5 @@ public class CuratorFrameworkProperties {
     private String connectString;
     private int sessionTimeoutMs;
     private int connectionTimeoutMs;
+    private boolean enable = false;
 }

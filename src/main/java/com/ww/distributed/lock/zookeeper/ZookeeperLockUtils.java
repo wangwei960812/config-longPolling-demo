@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ZookeeperLockUtils {
 
-    @Autowired
+    @Autowired(required = false)
     private CuratorFramework client;
 
     public Object dealWithLock(String lockKey, DealBusiness dealBusiness, Object... params){
