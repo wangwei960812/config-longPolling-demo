@@ -1,6 +1,7 @@
 package com.ww.configuration;
 
 import com.ww.config.ConfigClient;
+import com.ww.distributed.lock.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

@@ -76,7 +76,7 @@
             <!--<groupId>org.apache.zookeeper</groupId>-->
             <!--<artifactId>zookeeper</artifactId>-->
             <!--<version>3.4.12</version>-->
-            <!--&lt;!&ndash; æŽ’é™¤å†²çªjar &ndash;&gt;-->
+            <!--&lt;!&ndash; ÅÅ³ý³åÍ»jar &ndash;&gt;-->
             <!--<exclusions>-->
                 <!--<exclusion>-->
                     <!--<groupId>org.slf4j</groupId>-->
