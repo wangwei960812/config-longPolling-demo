@@ -21,12 +21,13 @@ public class ConfigClientListener implements ApplicationListener<ContextRefreshe
 
     /**
      * 初始化启动配置中心客户端
+     *
      * @param contextRefreshedEvent
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         log.info("初始化启动配置中心客户端开始");
         ConfigClient configClient = new ConfigClient();
-        configClient.longPolling(configProperties.getUrl(),configProperties.getDataId());
+        configClient.longPolling(configProperties.getUrl(), configProperties.getDataId());
     }
 }
