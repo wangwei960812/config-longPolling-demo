@@ -1,5 +1,6 @@
 package com.ww.configuration;
 
+import com.ww.distributed.zookeeper.DistributedClient;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -25,7 +26,13 @@ public class ZookeeperConfig {
         } else {
             return null;
         }
+    }
 
-
+    @Bean
+    public DistributedClient distributedClient(ZooKeeperProperties zooKeeperProperties) throws Exception {
+        DistributedClient distributedClient = new DistributedClient(zooKeeperProperties);
+        distributedClient.connect();
+        distributedClient.registerServer();
+        return distributedClient;
     }
 }
