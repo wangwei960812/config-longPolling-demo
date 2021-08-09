@@ -5,6 +5,8 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,9 +32,13 @@ public class ZookeeperConfig {
 
     @Bean
     public DistributedClient distributedClient(ZooKeeperProperties zooKeeperProperties) throws Exception {
-        DistributedClient distributedClient = new DistributedClient(zooKeeperProperties);
-        distributedClient.connect();
-        distributedClient.registerServer();
-        return distributedClient;
+        if(zooKeeperProperties.isEnable()){
+            DistributedClient distributedClient = new DistributedClient(zooKeeperProperties);
+            distributedClient.connect();
+            distributedClient.registerServer();
+            return distributedClient;
+        }else {
+            return null;
+        }
     }
 }
