@@ -36,7 +36,7 @@ public class ConditionTest {
         consumer1.start();
         consumer2.start();
         producer2.start();
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         consumer1.interrupt();
         consumer2.interrupt();
         producer2.interrupt();
@@ -130,6 +130,12 @@ public class ConditionTest {
                 //通知生产者进行生产
                 notFull.signalAll();
                 log.info("{}从队列中取走一个元素，队列剩余{}个元素", Thread.currentThread().getName(), queue.size());
+                while(!queue.isEmpty()){
+                    //每次取走队首的一个元素
+                    queue.poll();
+                    log.info("{}从队列中取走一个元素，队列剩余{}个元素", Thread.currentThread().getName(), queue.size());
+                }
+
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -162,6 +168,24 @@ public class ConditionTest {
             while (flag) {
                 lock.lock();
                 try {
+//                    while (queue.size() == queueSize) {
+//                        try {
+//                            log.info("队列已经满了，等待空闲时间");
+//                            notFull.await();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                            flag = false;
+//                        }
+//                    }
+//                    //向队列中插入一个元素
+//                    queue.offer(1);
+//                    notEmpty.signalAll();
+//                    log.info("{}向队列中插入一个元素，队列剩余空间：{}", Thread.currentThread().getName(), queue.size());
+                    while (queue.size() < queueSize) {
+                        //向队列中插入一个元素
+                        queue.offer(1);
+                        log.info("{}向队列中插入一个元素，队列剩余空间：{}", Thread.currentThread().getName(), queue.size());
+                    }
                     while (queue.size() == queueSize) {
                         try {
                             log.info("队列已经满了，等待空闲时间");
@@ -171,10 +195,7 @@ public class ConditionTest {
                             flag = false;
                         }
                     }
-                    //向队列中插入一个元素
-                    queue.offer(1);
-                    notEmpty.signalAll();
-                    log.info("{}向队列中插入一个元素，队列剩余空间：{}", Thread.currentThread().getName(), queue.size());
+
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {

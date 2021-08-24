@@ -49,16 +49,19 @@ public class XxlJobConfig {
 
     @Bean
     public XxlJobSpringExecutor xxlJobExecutor(XxlJobConfigProperties xxlJobConfigProperties) {
-        log.info(">>>>>>>>>>> xxl-job config init.");
-        XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
-        xxlJobSpringExecutor.setAdminAddresses(xxlJobConfigProperties.getAdmin().getAddresses());
-        xxlJobSpringExecutor.setAppname(xxlJobConfigProperties.getExecutor().getAppname());
-        xxlJobSpringExecutor.setAddress(xxlJobConfigProperties.getExecutor().getAddress());
-        xxlJobSpringExecutor.setIp(xxlJobConfigProperties.getExecutor().getIp());
-        xxlJobSpringExecutor.setPort(xxlJobConfigProperties.getExecutor().getPort());
-        xxlJobSpringExecutor.setAccessToken(xxlJobConfigProperties.getAccessToken());
-        xxlJobSpringExecutor.setLogPath(xxlJobConfigProperties.getExecutor().getLogpath());
-        xxlJobSpringExecutor.setLogRetentionDays(xxlJobConfigProperties.getExecutor().getLogretentiondays());
+        XxlJobSpringExecutor xxlJobSpringExecutor = null;
+        if(xxlJobConfigProperties.isEnable()){
+            log.info(">>>>>>>>>>> xxl-job config init.");
+            xxlJobSpringExecutor = new XxlJobSpringExecutor();
+            xxlJobSpringExecutor.setAdminAddresses(xxlJobConfigProperties.getAdmin().getAddresses());
+            xxlJobSpringExecutor.setAppname(xxlJobConfigProperties.getExecutor().getAppname());
+            xxlJobSpringExecutor.setAddress(xxlJobConfigProperties.getExecutor().getAddress());
+            xxlJobSpringExecutor.setIp(xxlJobConfigProperties.getExecutor().getIp());
+            xxlJobSpringExecutor.setPort(xxlJobConfigProperties.getExecutor().getPort());
+            xxlJobSpringExecutor.setAccessToken(xxlJobConfigProperties.getAccessToken());
+            xxlJobSpringExecutor.setLogPath(xxlJobConfigProperties.getExecutor().getLogpath());
+            xxlJobSpringExecutor.setLogRetentionDays(xxlJobConfigProperties.getExecutor().getLogretentiondays());
+        }
         return xxlJobSpringExecutor;
     }
 }

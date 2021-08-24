@@ -16,6 +16,7 @@ public class XxlJobConfigProperties {
     private String accessToken;
     private XxlJobConfigProperties.Admin admin;
     private XxlJobConfigProperties.Executor executor;
+    private boolean enable = false;
 
     @Data
     public static class Admin{
